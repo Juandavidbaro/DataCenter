@@ -35,6 +35,70 @@ public class Controller {
 
     }
 	
+	public String changeStateMinirooms() {       
+		String message = "";
+        for (int i = 0; i < miniRooms.length; i++) {
+            for (int j = 0; j < miniRooms[0].length; j++) {
+                               
+                miniRooms[i][j].setStatus(true);             
+
+            }
+        }
+		message="All the rooms were lit";
+		
+		return message;
+       
+    }
+	
+	public void turnOffL(){
+		for (int i=0; i<miniRooms.length; i++){
+			miniRooms[i][0].setStatus(false);
+		}
+
+		for (int i=1; i<miniRooms[0].length; i++){
+			miniRooms[0][i].setStatus(false);
+		}
+	}
+	public void turnOffZ(){
+		for (int i=0; i<miniRooms[0].length; i++){
+			miniRooms[0][i].setStatus(false);
+			miniRooms[miniRooms.length-1][i].setStatus(false);
+			
+		}
+
+		for (int i=miniRooms.length-1, j=miniRooms[0].length-1; i>-1 && j>-1; i--, j--){
+			miniRooms[i][j].setStatus(false);
+		}
+	}
+	public void turnOffH(){
+		for (int i=0; i<miniRooms.length; i++){
+			if ((i+1)%2 != 0){
+				for (int j=0; j<miniRooms[0].length; j++){
+					miniRooms[i][j].setStatus(false);
+				}
+			}
+		}
+	}
+	public void turnOffO(){
+		for (int i=0; i<miniRooms.length; i++){
+			for (int j=0; j<miniRooms[0].length; j++){
+				if (j==0 || j==(miniRooms[0].length-1) || i==0 || i==(miniRooms.length-1)){
+					miniRooms[i][j].setStatus(false);
+				}
+			}
+		}
+	}
+	public void turnOffM(int column){
+		for (int i=0; i<miniRooms.length; i++){
+			miniRooms[i][column-1].setStatus(false);
+		}
+	}
+	public void turnOffP(int corridor){
+		for (int j=0; j<miniRooms[0].length; j++){
+			miniRooms[corridor-1][j].setStatus(false);
+		}
+	}
+
 	/**
      * Descripcion: permite conocer la informacion de la disponibilidad de los mini rooms
      * 
