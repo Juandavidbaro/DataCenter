@@ -57,7 +57,7 @@ public class Main {
             rentAMiniroom();
             break;
         case 3:
-        cancelRentAMiniRoom();
+			cancelRentAMiniRoom();
 
             break;
         case 4:
