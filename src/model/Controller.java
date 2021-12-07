@@ -17,7 +17,7 @@ public class Controller {
      * 
      */
     public void createMiniRooms() {
-        int num = 1;
+        int number = 1;
 
         for (int i = 0; i < miniRooms.length; i++) {
             for (int j = 0; j < miniRooms[0].length; j++) {
@@ -26,8 +26,8 @@ public class Controller {
                     window = true;
                 }
 
-                miniRooms[i][j] = new MiniRoom(num, j, i, window);
-                num++;
+                miniRooms[i][j] = new MiniRoom(number, j, i, window);
+                number++;
             }
         }
 
@@ -35,7 +35,13 @@ public class Controller {
 
     }
 	
-	public String changeStateMinirooms() {       
+	/**
+     * Descripcion: permite cambiar el estado de todos los cuartos a encendido
+     * 
+     * 
+     *@return <message><String> todos los cuartos fueron encendidos
+     */
+	public String changeStateOnMinirooms() {       
 		String message = "";
         for (int i = 0; i < miniRooms.length; i++) {
             for (int j = 0; j < miniRooms[0].length; j++) {
@@ -49,7 +55,12 @@ public class Controller {
 		return message;
        
     }
-	
+	/**
+     * Descripcion: permite apagar los mini cuartos en forma de L
+     * 
+     * 
+     * 
+     */
 	public void turnOffL(){
 		for (int i=0; i<miniRooms.length; i++){
 			miniRooms[i][0].setStatus(false);
@@ -59,6 +70,13 @@ public class Controller {
 			miniRooms[0][i].setStatus(false);
 		}
 	}
+	
+	/**
+     * Descripcion: permite apagar los mini cuartos en forma de Z
+     * 
+     * 
+     * 
+     */
 	public void turnOffZ(){
 		for (int i=0; i<miniRooms[0].length; i++){
 			miniRooms[0][i].setStatus(false);
@@ -70,6 +88,13 @@ public class Controller {
 			miniRooms[i][j].setStatus(false);
 		}
 	}
+	
+	/**
+     * Descripcion: permite apagar los mini cuartos de los corredores impares
+     * 
+     * 
+     * 
+     */
 	public void turnOffH(){
 		for (int i=0; i<miniRooms.length; i++){
 			if ((i+1)%2 != 0){
@@ -79,6 +104,13 @@ public class Controller {
 			}
 		}
 	}
+	
+	/**
+     * Descripcion: permite apagar los mini cuartos en forma de O (ubicados en las ventanas)
+     * 
+     * 
+     * 
+     */
 	public void turnOffO(){
 		for (int i=0; i<miniRooms.length; i++){
 			for (int j=0; j<miniRooms[0].length; j++){
@@ -88,11 +120,25 @@ public class Controller {
 			}
 		}
 	}
+	
+	/**
+     * Descripcion: permite apagar los mini cuartos de la columna ingresada por el usuario
+     * 
+     * @param <column><int> debe ser un entero
+     * 
+     */
 	public void turnOffM(int column){
 		for (int i=0; i<miniRooms.length; i++){
 			miniRooms[i][column-1].setStatus(false);
 		}
 	}
+	
+	/**
+     * Descripcion: permite apagar los mini cuartos del corredor ingresado por el usuario
+     * 
+     * @param <corridor><int> debe ser un entero
+     * 
+     */
 	public void turnOffP(int corridor){
 		for (int j=0; j<miniRooms[0].length; j++){
 			miniRooms[corridor-1][j].setStatus(false);
@@ -111,7 +157,7 @@ public class Controller {
         for (int i = 0; i < miniRooms.length; i++) {
             for (int j = 0; j < miniRooms[0].length; j++) {
                 MiniRoom aux=miniRooms[i][j];
-                if (aux.isRent()==false) {
+                if (aux.rented()==false) {
                     message+=aux.toString()+"\n";
                 }
 
@@ -120,28 +166,30 @@ public class Controller {
         
         return message;
     }
-
+	
+	/*
 	/**
-     * Descripcion: permite conocer el status de las mini rooms
+     * Descripcion: permite conocer el status de las mini rooms y realiza una lista, con el número de la habitacion y el estado
      * 
      * 
      * @return <message><String> con la informacion status de las mini rooms
-     */
+     *
     public String infoStatusRooms() {
         String message = "";
 
         for (int i = 0; i < miniRooms.length; i++) {
             for (int j = 0; j < miniRooms[0].length; j++) {
                 MiniRoom aux=miniRooms[i][j];
-                if (aux.isRent()==false) {
-                    message+="-----------------------------------\n"+aux.toStringStatus()+"\n";
+                if (aux.rented()==false) {
+                    message+="-----------------------------------\n"+
+					aux.toStringStatus()+"\n";
                 }
 
             }
         }
         
         return message;
-    }
+    }*/
 	
 	/**
      * Descripcion: permite realizar la renta de un minicuarto
@@ -149,11 +197,12 @@ public class Controller {
      * 
      * 
      */
-    public String rentAMiniroom(int num, String name, String nit, ArrayList<Server> rack) {
-        MiniRoom room=searchRoom(num);
+    public String rentAMiniroom(int number, String name, String nit, ArrayList<Server> rack) {
+        MiniRoom room=searchRoom(number);
         room.setCompany(new Company(name, nit));
         room.setRack(rack);
         room.setRent(true);
+		room.setStatus(true);
 
         return "Rent a mini-room success";
 
@@ -162,16 +211,16 @@ public class Controller {
 	/**
      * Descripcion: permite buscar la mini room
      * 
-     * @param <num><int> debe ser un entero
+     * @param <number><int> debe ser un entero
      * @return <room><MiniRoom> el objeto de la mini room
      */
-    public MiniRoom searchRoom(int num){
+    public MiniRoom searchRoom(int number){
         MiniRoom room=null;
-        boolean find = false;
-        for (int i = 0; i < miniRooms.length && !find; i++) {
+        boolean flag = false;
+        for (int i = 0; i < miniRooms.length && !flag; i++) {
             for (int j = 0; j < miniRooms[0].length; j++) {
-                if (miniRooms[i][j].getNum()==num) {
-                    find=true;
+                if (miniRooms[i][j].getNumber()==number) {
+                    flag=true;
                    room=miniRooms[i][j];
                 }
         }
@@ -209,7 +258,7 @@ public class Controller {
             for (int j = 0; j < miniRooms[0].length; j++) {
                if (miniRooms[i][j].getCompany() != null){
                    if(miniRooms[i][j].getCompany().getName().equals(name)){
-                     proccesCapacity+=miniRooms[i][j].cancelRent();
+                    proccesCapacity+=miniRooms[i][j].cancelRent();
                     cancel=true;
                    }
                }
@@ -221,5 +270,57 @@ public class Controller {
 
         return message;
     }
+	
+	/**
+	*
+	* Descripcion: Recorre toda la matriz de miniRooms y obtiene el estado de cada posición. 
+	* Usa "O" para representar "encendido" y "X" para representar "apagado". 
+	* @return actualStates char [] [] con los símbolos que representan los estados de las mini habitaciones.
+	*/
+	public char[][] mapMiniRoomStates(){
+		char[][] actualStates = new char[8][50];
+		char simbol = 'X';
+		for (int i=0; i<miniRooms.length; i++){
+			for (int j=0; j<miniRooms[0].length; j++){
+				simbol = 'X';
+				MiniRoom aux = miniRooms[i][j];
+				if (aux.getStatus().equals("ON")){
+					simbol = 'O';
+				}
+				actualStates[i][j] = simbol;
+			}
+		}
+
+		return actualStates;
+	}
+	
+	/**
+     * Descripcion: permite dar el mapa de los estados de cada cuarto (encendido "O" y apagado "X")
+     * 
+     * 
+     * @return <map><String> con el esquema del encendido y apagado de cada cuarto
+     */
+	public String getCenterMap(){
+		char[][] states = mapMiniRoomStates();
+		String map = getMap(states);
+		return map;		
+	}
+	
+	/**
+	 * Descripcion: Devuelve una cadena con un "formato de mapa". 
+	 * @param indica los elementos char [] [] utilizados en el mapa.
+	 * @return map Cadena con los datos de los estados pero organizados, simulando ver el edificio
+	 * forma legible.
+	 */
+	public String getMap(char[][] states){
+		String map = "";
+		for (int i=0; i<miniRooms.length; i++){
+			for (int j=0; j<miniRooms[0].length; j++){
+				map += states[i][j] + " ";
+			}
+			map += "\n";
+		}
+		return map;
+	}
 
 }

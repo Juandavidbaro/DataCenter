@@ -4,30 +4,30 @@ public class Server {
     
     private double cache;
     private int numProcessor;
-    private Processor MarkProcessor;
+    private Processor markProcessor;
     private double ram;
     private int disc;
-    private double CapacityDisc;
+    private double capacityDisc;
 
 
 	//-------------------------	Constructor--------------------------------
 	
-    public Server(double cache, int numProcessor, int MarkProcessor, double ram, int disc, double CapacityDisc) {
+    public Server(double cache, int numProcessor, int markProcessor, double ram, int disc, double capacityDisc) {
         this.cache = cache;
         this.numProcessor = numProcessor;
-        if (MarkProcessor == 1){
-            this.MarkProcessor = Processor.INTEL;
+        if (markProcessor == 1){
+            this.markProcessor = Processor.INTEL;
         }else {
-            this.MarkProcessor = Processor.AMD;
+            this.markProcessor = Processor.AMD;
         }
         this.ram = ram;
         this.disc = disc;
-        this.CapacityDisc = CapacityDisc;
+        this.capacityDisc = capacityDisc;
     }
 
 	//--------------------------------Getter and Setter---------------------------------
     public double getProccesCapacity(){
-        return CapacityDisc+ram;
+        return capacityDisc+ram;
     }
 
 
@@ -63,19 +63,19 @@ public class Server {
         this.disc = disc;
     }
 
-    public double getCapacityDisc() {
-        return this.CapacityDisc;
+    public double getcapacityDisc() {
+        return this.capacityDisc;
     }
 
-    public void setCapacityDisc(double CapacityDisc) {
-        this.CapacityDisc = CapacityDisc;
+    public void setcapacityDisc(double capacityDisc) {
+        this.capacityDisc = capacityDisc;
     }
 
-    public Processor getMarkProcessor() {
-        return this.MarkProcessor;
+    public Processor getmarkProcessor() {
+        return this.markProcessor;
     }
 
-    public void setMarkProcessor(Processor MarkProcessor) {
-        this.MarkProcessor = MarkProcessor;
+    public void setmarkProcessor(Processor markProcessor) {
+        this.markProcessor = markProcessor;
     }
 }

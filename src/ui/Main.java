@@ -33,7 +33,7 @@ public class Main {
 	 *@return imput, opcion digitada por el usuario
      */
     public int showMenuAndGetOption() {
-        System.out.println("\n\nMENU, Input a option\n" + 
+        System.out.println("\n\nMENU, Enter a option\n" + 
 		"(1) Show list of available mini-rooms\n" + 
 		"(2) Rent a mini-room\n" +
 		"(3)Cancel rent a mini room \n" + 
@@ -41,8 +41,8 @@ public class Main {
 		"(5)Simulate turn on the rooms\n" +
 		"(6)Simulate turn off the rooms\n"+
 		"(0) EXIT");
-        int input = Integer.parseInt(sc.nextLine());
-        return input;
+        int Enter = sc.nextInt();
+        return Enter;
 
     }
 
@@ -63,11 +63,12 @@ public class Main {
 
             break;
         case 4:
-			System.out.println(controller.infoStatusRooms());
+			//System.out.println(controller.infoStatusRooms());
+			 System.out.println(controller.getCenterMap());
 			
 			break;
 		case 5:
-			changeStateMinirooms();
+			changeStateOnMinirooms();
 			
             break;
 			
@@ -88,16 +89,16 @@ public class Main {
      */
     private void cancelRentAMiniRoom() {
 
-        System.out.println(" 1 To delete mini-rooms for company, 2 To delete mini-room for ID");
-        int option = Integer.parseInt(sc.nextLine());
+        System.out.println("1. To delete mini-rooms for company\n2. To delete mini-room for ID");
+        int option = sc.nextInt();
 
         if (option == 1) {
-            System.out.println("input the name of company: ");
-            String name = sc.nextLine();
+            System.out.println("Enter the name of company: ");
+            String name = sc.next();
             System.out.println(controller.cancelRentAMiniRoom(name));
         }else if (option == 2) {
-            System.out.println("Input the ID: ");
-            int id = Integer.parseInt(sc.nextLine());
+            System.out.println("Enter the ID: ");
+            int id = sc.nextInt();
             System.out.println(controller.cancelRentAMiniRoom(id));
         }
 
@@ -110,53 +111,53 @@ public class Main {
      * 
      */
     private void rentAMiniroom() {
-        System.out.println("Input the number of miniroom to rent: ");
-        int num= Integer.parseInt(sc.nextLine());
+        System.out.println("Enter the number of miniroom to rent: ");
+        int number= sc.nextInt();
 
         System.out.println("Select 1 for private company or 2 for research project: ");
-        int option= Integer.parseInt(sc.nextLine());
+        int option= sc.nextInt();
 
         if (option == 1  || option == 2){
             String name;
             String nit;
             if (option == 1){
                 System.out.println("The name of company: ");
-                name = sc.nextLine();
+                name = sc.next();
    
                System.out.println("The nit of company: ");
-                nit = sc.nextLine();
+                nit = sc.next();
             }else{
                 name = "ICESI";
-                System.out.println("Input the ID of research project: ");
-                nit = sc.nextLine();
+                System.out.println("Enter the number of the mini room: ");
+                nit = sc.next();
             }
-            System.out.println("Input the amount of servers: ");
-            int numServes = Integer.parseInt(sc.nextLine());
+            System.out.println("Enter the amount of servers: ");
+            int numberServes = sc.nextInt();
             
             ArrayList <Server> rack = new ArrayList<>();
-            for (int i=0;i < numServes; i++){
-                System.out.println("Input the cache: ");
-                double cache = Double.parseDouble(sc.nextLine());
+            for (int i=0;i < numberServes; i++){
+                System.out.println("Enter the cache: ");
+                double cache = sc.nextDouble();
 
-                System.out.println("Input the number if processors: ");
-                int numProcessor = Integer.parseInt(sc.nextLine());
+                System.out.println("Enter the number if processors: ");
+                int numberProcessor = sc.nextInt();
 
-                System.out.println("Input 1 if is intel or 2 if is AMD: ");
-                int MarkProcessor = Integer.parseInt(sc.nextLine());
+                System.out.println("Enter 1 if is intel or 2 if is AMD: ");
+                int markProcessor = sc.nextInt();
 
-                System.out.println("Input the ram: ");
-                double ram = Double.parseDouble(sc.nextLine());
+                System.out.println("Enter the ram: ");
+                double ram = sc.nextDouble();
 
-                System.out.println("Input the disc");
-                int disc = Integer.parseInt(sc.nextLine());
+                System.out.println("Enter the disc");
+                int disc = sc.nextInt();
 
-                System.out.println("Input the capacity of disc: ");
-                double CapacityDisc = Integer.parseInt(sc.nextLine());
+                System.out.println("Enter the capacity of disc: ");
+                double capacityDisc = sc.nextDouble();
 
-                rack.add(new Server(cache, numProcessor, MarkProcessor, ram, disc, CapacityDisc));
+                rack.add(new Server(cache, numberProcessor, markProcessor, ram, disc, capacityDisc));
             }
 
-            System.out.println(controller.rentAMiniroom(num, name, nit, rack));
+            System.out.println(controller.rentAMiniroom(number, name, nit, rack));
 
       
             }else {
@@ -173,10 +174,21 @@ public class Main {
     private void infoAvailableRooms() {
         System.out.println(controller.infoAvailableRooms());
     }
-	
-	private void changeStateMinirooms() {
-        System.out.println(controller.changeStateMinirooms());
+	/**
+     * Descripcion: muestra el mensaje del exito o fracaso del encendido de los cuartos
+     * 
+     * 
+     * 
+     */
+	private void changeStateOnMinirooms() {
+        System.out.println(controller.changeStateOnMinirooms());
     }
+	/**
+     * Descripcion: muestra el menu de apagado, y segun lo que digite el usuario, apagará de la forma correspondiente
+     * 
+     * 
+     * 
+     */
 	private void turnOffMinirooms() {
 		String letter;
 		
@@ -190,7 +202,8 @@ public class Main {
 		"Letter X: to exit the simulator.\n"+
 		"Type the corresponding letter in uppercase:");
 		
-		letter = sc.nextLine();
+		letter = sc.next();
+		
 		
 		switch(letter) {
 		
@@ -221,13 +234,12 @@ public class Main {
                 controller.turnOffP(corridor);
 			break;
 			
-		case "0":
+		case "X":
                 System.out.println("\nEnd of simulation");
                 
                 break;	
 		}
-		//System.out.println("Result:");
-        //System.out.println(controller.simulatedMap());		
-        //System.out.println(controller.turnOffMinirooms());
+		System.out.println("\n--------------------------------------------- RESULT ----------------------------------------------\n");
+        System.out.println(controller.getCenterMap());
     }
 }

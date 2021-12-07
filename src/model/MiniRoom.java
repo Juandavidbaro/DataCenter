@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MiniRoom {
 
-    private int num;
+    private int number;
     private double price;
     private boolean rent;
     private int colum;
@@ -22,8 +22,8 @@ public class MiniRoom {
     
 	//--------------------------Constructor-----------------------------
 
-    public MiniRoom(int num,int colum,int row,boolean window) {
-        this.num = num;
+    public MiniRoom(int number,int colum,int row,boolean window) {
+        this.number = number;
         this.price = 0;
         this.rent = false;
         this.row=row;
@@ -82,12 +82,12 @@ public class MiniRoom {
         this.rack = rack;
     }
 
-    public int getNum() {
-        return this.num;
+    public int getNumber() {
+        return this.number;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public double getPrice() {
@@ -99,7 +99,7 @@ public class MiniRoom {
     }
 
 
-    public boolean isRent() {
+    public boolean rented() {
         return this.rent;
     }
 
@@ -166,21 +166,22 @@ public class MiniRoom {
     @Override
     public String toString() {
         return 
-            "the num: " + getNum() + "\n" +
+            "\nthe number: " + getNumber() + "\n" +
             "the price: " + getPrice() + "\n" +
-            "the rent: " + isRent() + "\n" +
+            "the rent: " + rented() + "\n" +
             "the colum: " + getColum() + "\n" +
             "the row: " + getRow() + "\n" +
             "the window: " + isWindow() + "\n"+
-            "Status:"+getStatus();
+            "Status:"+getStatus()+"\n";
     }
 
 
 
     public String toStringStatus() {
         return 
-            "the num: " + getNum() + "\n" +
+            "the number: " + getNumber() + "\n" +
             "Status:"+getStatus();
     }
+	
   
 }
